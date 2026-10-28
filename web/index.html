@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101010">
+    <title>Vigía · Panel TLS</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body data-view="overview">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="Vigía, inicio">
+        <svg class="brand-mark" viewBox="0 0 100 54" role="img" aria-label="">
+          <path d="M4 5c12 15 24 24 43 31-2 12-10 15-20 11C13 42 7 28 4 5Zm92 0C84 20 72 29 53 36c2 12 10 15 20 11C87 42 93 28 96 5Z" fill="currentColor"/>
+          <path d="M17 25c7 9 14 14 25 17-3 5-7 7-12 5-8-3-12-10-13-22Zm66 0c-7 9-14 14-25 17 3 5 7 7 12 5 8-3 12-10 13-22Z" fill="#101010"/>
+        </svg>
+        <span class="brand-name">vigía<span class="brand-period">.</span></span>
+      </a>
+
+      <div class="workspace-switcher">
+        <span class="workspace-avatar">Z</span>
+        <span class="workspace-copy"><strong>Workspace</strong><small>Plan de demostración</small></span>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+      </div>
+
+      <p class="nav-label">MONITORIZACIÓN</p>
+      <nav class="primary-nav" aria-label="Navegación principal">
+        <button class="nav-item is-active" type="button" data-view-button="overview" aria-current="page">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="3" width="5" height="6" rx="1"/><rect x="12" y="3" width="5" height="4" rx="1"/><rect x="12" y="10" width="5" height="7" rx="1"/><rect x="3" y="12" width="5" height="5" rx="1"/></svg>
+          <span>Resumen</span>
+        </button>
+        <button class="nav-item" type="button" data-view-button="certificates">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2.8h7l3 3v11.4H5z"/><path d="M12 3v3h3M7.5 10h5M7.5 13h5"/></svg>
+          <span>Certificados</span><span class="nav-count">127</span>
+        </button>
+        <button class="nav-item" type="button" data-view-button="findings">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5 18 17H2z"/><path d="M10 7v4M10 14v.1"/></svg>
+          <span>Hallazgos</span><span class="nav-count nav-count-alert">11</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="connection-state"><span></span><div><strong>Modo demostración</strong><small>Sin conexión a servicios</small></div></div>
+        <button class="profile-button" type="button" aria-label="Cuenta de Zarixxx">
+          <span class="profile-avatar">Z</span><span class="profile-copy"><strong>Zarixxx</strong><small>Administrador</small></span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="1"/><circle cx="8" cy="3" r="1"/><circle cx="8" cy="13" r="1"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobile-menu" type="button" aria-label="Abrir navegación" aria-expanded="false">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg>
+        </button>
+        <div class="breadcrumbs"><span>Workspace</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg><strong id="breadcrumb-current">Resumen</strong></div>
+        <div class="topbar-actions">
+          <label class="global-search">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg>
+            <input id="search-input" type="search" placeholder="Buscar objetivo..." aria-label="Buscar certificado u objetivo">
+            <kbd>/</kbd>
+          </label>
+          <span class="demo-tag"><span></span> DATOS DE MUESTRA</span>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <section class="page-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> VIGILANCIA TLS <span class="eyebrow-date">· 28 OCT 2026</span></p>
+            <h1 id="page-title">Tu perímetro,<br><em>bajo control.</em></h1>
+            <p class="page-description" id="page-description">Una lectura clara de los certificados que protegen tus servicios.</p>
+          </div>
+          <button class="button button-primary" id="open-target-dialog" type="button">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg>
+            Añadir objetivo
+          </button>
+        </section>
+
+        <section class="stats-row" aria-label="Resumen del inventario">
+          <article class="stat-item">
+            <span class="stat-label">CERTIFICADOS</span><strong class="stat-value" id="cert-total">127</strong>
+            <span class="stat-note"><span class="status-dot dot-green"></span> en inventario</span>
+          </article>
+          <article class="stat-item stat-critical">
+            <span class="stat-label">CRÍTICOS</span><strong class="stat-value">03</strong>
+            <span class="stat-note"><span class="status-dot dot-red"></span> caducan en 7 días</span>
+          </article>
+          <article class="stat-item stat-warning">
+            <span class="stat-label">PRÓXIMOS A CADUCAR</span><strong class="stat-value">08</strong>
+            <span class="stat-note"><span class="status-dot dot-amber"></span> dentro de 30 días</span>
+          </article>
+          <article class="stat-item">
+            <span class="stat-label">ESTADO DE SONDEO</span><strong class="stat-value stat-word">Estable</strong>
+            <span class="stat-note"><span class="status-dot dot-green"></span> datos de ejemplo</span>
+          </article>
+        </section>
+
+        <section class="overview-grid" id="overview-panels" aria-label="Vencimientos y hallazgos">
+          <article class="panel expiry-panel">
+            <div class="panel-heading">
+              <div><p class="section-kicker">VENTANA DE VENCIMIENTO</p><h2>Certificados por caducar</h2></div>
+              <button class="quiet-button" id="show-certificates" type="button">Ver inventario <span aria-hidden="true">↗</span></button>
+            </div>
+            <div class="chart-summary"><strong>11</strong><span>requieren atención</span><div class="chart-legend"><span><i class="legend-red"></i> Crítico</span><span><i class="legend-amber"></i> Aviso</span></div></div>
+            <div class="bar-chart" role="img" aria-label="Gráfico de certificados que caducan: 3 en 7 días, 8 en 30 días, 14 en 60 días y 22 en 90 días">
+              <button class="bar-group" type="button" data-chart-filter="critical" aria-label="Filtrar certificados críticos, hasta 7 días"><span class="bar-value">3</span><span class="bar-track"><i class="bar-fill bar-red" style="--bar-height: 24%"></i></span><span class="bar-label">0–7 días</span></button>
+              <button class="bar-group" type="button" data-chart-filter="warning" aria-label="Filtrar certificados con aviso, hasta 30 días"><span class="bar-value">8</span><span class="bar-track"><i class="bar-fill bar-amber" style="--bar-height: 47%"></i></span><span class="bar-label">8–30 días</span></button>
+              <button class="bar-group" type="button" data-chart-filter="next" aria-label="Filtrar certificados que caducan en 31 a 60 días"><span class="bar-value">14</span><span class="bar-track"><i class="bar-fill bar-neutral" style="--bar-height: 70%"></i></span><span class="bar-label">31–60 días</span></button>
+              <button class="bar-group" type="button" data-chart-filter="all" aria-label="Mostrar todos los certificados"><span class="bar-value">22</span><span class="bar-track"><i class="bar-fill bar-neutral" style="--bar-height: 100%"></i></span><span class="bar-label">61–90 días</span></button>
+            </div>
+            <div class="chart-axis"><span>0</span><span>5</span><span>10</span><span>15</span><span>20+</span></div>
+          </article>
+
+          <article class="panel attention-panel">
+            <div class="panel-heading">
+              <div><p class="section-kicker">ACCIÓN REQUERIDA</p><h2>Hallazgos abiertos <span class="heading-count">03</span></h2></div>
+              <button class="icon-button" id="show-findings" type="button" aria-label="Ver todos los hallazgos"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M10 4l6 6-6 6"/></svg></button>
+            </div>
+            <ul class="attention-list">
+              <li><span class="severity-mark severity-critical"></span><div><strong>Certificado casi caducado</strong><span>vpn.acme.example · 3 días</span></div><b>CRÍTICO</b></li>
+              <li><span class="severity-mark severity-critical"></span><div><strong>Cadena incompleta</strong><span>api.acme.example · Intermedio ausente</span></div><b>CRÍTICO</b></li>
+              <li><span class="severity-mark severity-warning"></span><div><strong>Emisor inesperado</strong><span>mail.acme.example · Cambio detectado</span></div><b>AVISO</b></li>
+            </ul>
+            <div class="attention-footer"><span>Datos ilustrativos, no son alertas reales.</span><button type="button" data-view-button="findings">Abrir hallazgos <span aria-hidden="true">→</span></button></div>
+          </article>
+        </section>
+
+        <section class="inventory-section" id="inventory-section">
+          <div class="inventory-heading">
+            <div><p class="section-kicker">ACTIVOS SUPERVISADOS</p><h2 id="inventory-title">Inventario de certificados <span class="inventory-count" id="visible-count">6</span></h2></div>
+            <button class="button button-secondary" id="export-csv" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3-3m-3 3L7 9M4 13v3h12v-3"/></svg>Exportar CSV</button>
+          </div>
+          <div class="table-toolbar">
+            <div class="filter-tabs" role="group" aria-label="Filtrar certificados por estado">
+              <button class="filter-tab is-selected" type="button" data-filter="all">Todos <span>127</span></button>
+              <button class="filter-tab" type="button" data-filter="critical">Críticos <span>03</span></button>
+              <button class="filter-tab" type="button" data-filter="warning">Avisos <span>08</span></button>
+            </div>
+            <span class="table-update"><i></i> Muestra local</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th scope="col">OBJETIVO</th><th scope="col">EMISOR</th><th scope="col">CADUCA</th><th scope="col">DÍAS</th><th scope="col">ESTADO</th><th scope="col"><span class="sr-only">Acciones</span></th></tr></thead>
+              <tbody id="certificate-rows">
+                <tr data-status="critical" data-days="3"><td><span class="target-name">vpn.acme.example</span><span class="target-meta">VPN · 203.0.113.14</span></td><td>Let's Encrypt</td><td>31 oct 2026</td><td class="days-cell days-critical">03</td><td><span class="status-pill pill-critical"><i></i>Crítico</span></td><td><button class="row-action" type="button" aria-label="Ver vpn.acme.example">↗</button></td></tr>
+                <tr data-status="critical" data-days="5"><td><span class="target-name">api.acme.example</span><span class="target-meta">API pública · 203.0.113.20</span></td><td>Sectigo RSA</td><td>02 nov 2026</td><td class="days-cell days-critical">05</td><td><span class="status-pill pill-critical"><i></i>Crítico</span></td><td><button class="row-action" type="button" aria-label="Ver api.acme.example">↗</button></td></tr>
+                <tr data-status="warning" data-days="12"><td><span class="target-name">mail.acme.example</span><span class="target-meta">Correo · 203.0.113.25</span></td><td>DigiCert Inc</td><td>09 nov 2026</td><td class="days-cell days-warning">12</td><td><span class="status-pill pill-warning"><i></i>Aviso</span></td><td><button class="row-action" type="button" aria-label="Ver mail.acme.example">↗</button></td></tr>
+                <tr data-status="warning" data-days="24"><td><span class="target-name">portal.acme.example</span><span class="target-meta">Web · 203.0.113.31</span></td><td>Let's Encrypt</td><td>21 nov 2026</td><td class="days-cell days-warning">24</td><td><span class="status-pill pill-warning"><i></i>Aviso</span></td><td><button class="row-action" type="button" aria-label="Ver portal.acme.example">↗</button></td></tr>
+                <tr data-status="healthy" data-days="56"><td><span class="target-name">gateway.norte.example</span><span class="target-meta">Acceso remoto · 203.0.113.42</span></td><td>GlobalSign</td><td>23 dic 2026</td><td class="days-cell">56</td><td><span class="status-pill pill-healthy"><i></i>Correcto</span></td><td><button class="row-action" type="button" aria-label="Ver gateway.norte.example">↗</button></td></tr>
+                <tr data-status="healthy" data-days="118"><td><span class="target-name">docs.acme.example</span><span class="target-meta">Documentación · 203.0.113.50</span></td><td>Let's Encrypt</td><td>23 feb 2027</td><td class="days-cell">118</td><td><span class="status-pill pill-healthy"><i></i>Correcto</span></td><td><button class="row-action" type="button" aria-label="Ver docs.acme.example">↗</button></td></tr>
+              </tbody>
+            </table>
+            <div class="empty-state" id="empty-state" hidden>No hay objetivos que coincidan con esta búsqueda.</div>
+          </div>
+          <div class="table-footer"><span>Mostrando <strong id="footer-count">6</strong> objetivos de muestra</span><div class="pagination"><button type="button" disabled aria-label="Página anterior">←</button><span>1 de 1</span><button type="button" disabled aria-label="Página siguiente">→</button></div></div>
+        </section>
+
+        <footer class="page-footer"><span>VIGÍA <b>·</b> VIGILANCIA TLS</span><span>Prototipo de interfaz · datos ficticios</span></footer>
+      </main>
+    </div>
+
+    <dialog class="target-dialog" id="target-dialog" aria-labelledby="dialog-title">
+      <form id="target-form">
+        <div class="dialog-heading"><div><p class="section-kicker">NUEVO ACTIVO</p><h2 id="dialog-title">Añadir objetivo</h2></div><button class="dialog-close" id="close-dialog" type="button" aria-label="Cerrar">×</button></div>
+        <p class="dialog-description">Añade un host al inventario local de demostración. No se realizará ningún sondeo.</p>
+        <label class="field-label" for="target-host">Host o dirección IP</label>
+        <div class="input-with-port"><input id="target-host" name="host" placeholder="servicio.ejemplo.com" required autocomplete="url"><span>:</span><input id="target-port" name="port" type="number" min="1" max="65535" value="443" aria-label="Puerto"></div>
+        <label class="field-label" for="target-group">Grupo</label>
+        <select id="target-group" name="group"><option>Producción</option><option>Internos</option><option>Correo</option><option>Otro</option></select>
+        <div class="dialog-actions"><button class="button button-secondary" id="cancel-dialog" type="button">Cancelar</button><button class="button button-primary" type="submit">Añadir a la muestra</button></div>
+      </form>
+    </dialog>
+    <div class="mobile-scrim" id="mobile-scrim"></div>
+  </body>
+</html>

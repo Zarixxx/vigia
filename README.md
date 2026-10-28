@@ -36,4 +36,14 @@ La validación de certificados se realiza después del handshake para poder info
 
 M0 y M1: andamiaje, reloj inyectable y comprobación TLS básica. Los hitos posteriores de la especificación aún no están implementados.
 
+## Interfaz de demostración
+
+El directorio `web/` contiene un prototipo autónomo del panel, con objetivos de muestra. No está conectado al sondeo, al inventario ni a una cuenta SaaS.
+
+```sh
+python3 -m http.server 4173 --directory web
+```
+
+Abre `http://localhost:4173` en el navegador. La interfaz permite buscar y filtrar la tabla de muestra, añadir objetivos locales y exportar CSV; no realiza conexiones de red.
+
 Consulta [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md), [docs/COMPROBACIONES.md](docs/COMPROBACIONES.md) y [DECISIONES.md](DECISIONES.md).
