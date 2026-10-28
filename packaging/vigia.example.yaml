@@ -1,0 +1,11 @@
+# La configuración completa se incorporará en M3.
+version: 1
+database: ./vigia.db
+defaults:
+  warn_days: 30
+  crit_days: 7
+  timeout: 5s
+  trust: system
+  probe_all_ips: false
+  deep_scan: false
+groups: []
