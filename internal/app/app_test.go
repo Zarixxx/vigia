@@ -39,3 +39,20 @@ func TestRunRejectsMissingTargets(t *testing.T) {
 		t.Fatalf("Run(check) = %d, want 3; salida: %s", code, stderr.String())
 	}
 }
+
+func TestDashboardHelp(t *testing.T) {
+	var stdout, stderr bytes.Buffer
+	if code := Run([]string{"dashboard", "--help"}, &stdout, &stderr); code != 0 {
+		t.Fatalf("Run(dashboard --help) = %d, salida de error: %s", code, stderr.String())
+	}
+	if !strings.Contains(stderr.String(), "--port") {
+		t.Fatalf("la ayuda del dashboard no describe --port: %s", stderr.String())
+	}
+}
+
+func TestDashboardRejectsInvalidPort(t *testing.T) {
+	var stdout, stderr bytes.Buffer
+	if code := Run([]string{"dashboard", "--port", "65536"}, &stdout, &stderr); code != 3 {
+		t.Fatalf("Run(dashboard --port 65536) = %d, want 3", code)
+	}
+}
